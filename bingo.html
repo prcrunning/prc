@@ -94,7 +94,8 @@ function setBingoStamp(data){
 
 function partShot() {
 html2canvas(document.querySelector('#bingo_main')).then(function(canvas) {
-        saveAs(canvas.toDataURL(), 'file-name.png');
+	var name = document.getElementById('bingo_runner').innerHTML;
+        saveAs(canvas.toDataURL(), name+" 빙고판"+".png");
     });
 }
 
