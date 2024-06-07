@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko"> <!-- 코드언어 표시 == 웹 표준지침 준수 -->
+<head>
+<meta charset="UTF-8">
+<title>PRC 출석체크</title>
+<style>
+@import url("./resources/css/bingo.css");
+</style>
+<script type="text/javascript" src="./resources/js/jquery.min.js"></script>
+
+
+<script>
+window.onload = function(){
+	init();
+}
+
+function init(){
+
+
+}
+
+
+function submitAttendance(){
+
+var dataRequestUrl = "https://script.google.com/macros/s/AKfycbzCBkDnEfwDH30rp972yIHC8qJGNt0FI-6PVjoUfIpBGw1DFWkb01W41uz4rewwbCc/exec";
+		$.ajax({
+			type:'POST',   //post 방식으로 전송
+			url:dataRequestUrl,
+			data : $('#bingo').serialize(),
+			dataType:'json',   //html 파일 형식으로 값을 담아온다.
+			success: function(data){
+				var getData = data;
+				if(getData.result === "success" && getData.name != "PRC"){
+					setBingoStamp(getData);
+					$('#wait').hide();
+				}else{
+					alert("빙고판 조회에 실패했습니다.");
+					initData();
+					$('#wait').hide();
+				}
+			},
+			error: function(err){
+				alert("빙고판 조회에 실패했습니다.");
+				initData();
+			}
+		});
+}
+ $(document).ajaxStart(function () {
+        $('#wait').show();
+    });
+
+    $(document).ajaxError(function () {
+        $('#wait').hide();
+    }); 
+
+function initData(){
+	document.getElementById('name').value = "";
+	document.getElementById('bingo_runner').innerHTML = "";
+	$("#bingo_runner").hide();
+	
+	for( var rowPos=1 ; rowPos < 6 ; rowPos++ ){
+		for( var colPos= 1 ; colPos < 6 ; colPos ++ ){
+			$("#stamp"+rowPos+colPos).hide();
+		}
+	}
+}
+
+function setBingoStamp(data){
+	var runner = data.name;
+	var stampList = data.bingo[0];
+
+	document.getElementById('bingo_runner').innerHTML = runner;
+	$("#bingo_runner").show();
+	
+	var rowPos = 1;
+	var colPos = 1;
+	var i=0;
+
+	for( i ; i <stampList.length ; i++){
+		if(stampList[i] == "O"){
+			$("#stamp"+rowPos+colPos).show();
+		}else{
+			$("#stamp"+rowPos+colPos).hide();
+		}
+		if( colPos == 5 ){
+			rowPos = rowPos + 1;
+			colPos = 1;
+		}else{
+			colPos = colPos + 1;
+		}
+	} 
+}
+
+
+function partShot() {
+html2canvas(document.querySelector('#bingo_main')).then(function(canvas) {
+        saveAs(canvas.toDataURL(), 'file-name.png');
+    });
+}
+
+
+function saveAs(uri, filename) {
+
+    var link = document.createElement('a');
+    if (typeof link.download === 'string') {
+        link.href = uri;
+        link.download = filename;
+        //Firefox requires the link to be in the body
+        document.body.appendChild(link);
+        //simulate click
+        link.click();
+        //remove the link when done
+        document.body.removeChild(link);
+    } else {
+        window.open(uri);
+    }
+}
+</script>
+
+</head>
+<body>
+   <div id="wrap" class="wrapper">
+      <form method="get" name="bingo" id="bingo" action="javascript:submitAttendance();">
+        <!-- 회원가입 타이틀부분 -->
+         <header>
+            <div id="header">
+               <h1 class="h_loho">
+                  <span><img  alt="prc_logo" src="./resources/images/prc_logo.jpg"></span>
+               </h1>
+            </div>
+         </header>
+        <div id="container">
+            <div class="row_group">
+       <!-- 성명 입력 -->
+               <div class="userInput">
+					<h3 class="list">이름<span id="nameError"></span></h3>
+					<span class="box int_id"><input type="text" id="name" name="이름" class="int check"></span>
+					<div class="btn_area">
+						<input type="submit" value="빙고조회" id="btnSubmit" name="btnSubmit">
+						<input type="button" value="빙고판 다운로드" id="btnDown" name="btnDown" onclick="javascript:partShot();">						
+					</div>
+               </div>			   
+            </div>
+        </div>
+		</form>
+
+		<div class="prcBingo">
+			<div id="bingo_main" name="bingo_main">
+				<div class="bingo_board" name="bingo_board" >
+					<img  alt="bingoBoard" id="bingo_board_img" src="./resources/images/bingoBoard.png">
+					<!--<img  alt="bingoBoard" src="./resources/images/bingoBoard.png">-->
+				</div>
+				<div name="bingo_runner" id="bingo_runner" class="bingo_runner"></div>
+				<div name="stamp11" id="stamp11" class="stamp">
+					<img  alt="stampBoard" id="stamp11_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp12" id="stamp12" class="stamp">
+					<img  alt="stampBoard" id="stamp12_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp13" id="stamp13" class="stamp">
+					<img  alt="stampBoard" id="stamp13_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp14" id="stamp14" class="stamp">
+					<img  alt="stampBoard" id="stamp14_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp15" id="stamp15" class="stamp">
+					<img  alt="stampBoard" id="stamp15_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp21" id="stamp21" class="stamp">
+					<img  alt="stampBoard" id="stamp21_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp22" id="stamp22" class="stamp">
+					<img  alt="stampBoard" id="stamp22_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp23" id="stamp23" class="stamp">
+					<img  alt="stampBoard" id="stamp23_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp24" id="stamp24" class="stamp">
+					<img  alt="stampBoard" id="stamp24_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp25" id="stamp25" class="stamp">
+					<img  alt="stampBoard" id="stamp25_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp31" id="stamp31" class="stamp">
+					<img  alt="stampBoard" id="stamp31_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp32" id="stamp32" class="stamp">
+					<img  alt="stampBoard" id="stamp32_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp33" id="stamp33" class="stamp">
+					<img  alt="stampBoard" id="stamp33_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp34" id="stamp34" class="stamp">
+					<img  alt="stampBoard" id="stamp34_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp35" id="stamp35" class="stamp">
+					<img  alt="stampBoard" id="stamp35_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp41" id="stamp41" class="stamp">
+					<img  alt="stampBoard" id="stamp41_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp42" id="stamp42" class="stamp">
+					<img  alt="stampBoard" id="stamp42_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp43" id="stamp43" class="stamp">
+					<img  alt="stampBoard" id="stamp43_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp44" id="stamp44" class="stamp">
+					<img  alt="stampBoard" id="stamp44_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp45" id="stamp45" class="stamp">
+					<img  alt="stampBoard" id="stamp45_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp51" id="stamp51" class="stamp">
+					<img  alt="stampBoard" id="stamp51_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp52" id="stamp52" class="stamp">
+					<img  alt="stampBoard" id="stamp52_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp53" id="stamp53" class="stamp">
+					<img  alt="stampBoard" id="stamp53_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp54" id="stamp54" class="stamp">
+					<img  alt="stampBoard" id="stamp54_img" src="./resources/images/bingo.png">
+				</div>
+				<div name="stamp55" id="stamp55" class="stamp">
+					<img  alt="stampBoard" id="stamp55_img" src="./resources/images/bingo.png">
+				</div>
+			</div>			
+		</div>
+   </div>
+<div id="wait" name="wait">
+<img  src="./resources/images/loading.gif" width="30%" height="30%" alt="Loading..." style="position: fixed; top: 35%; left: 35%;" />
+</div>   
+</body>
+</html>
