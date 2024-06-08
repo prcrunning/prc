@@ -156,140 +156,116 @@ h3.list {
 }
 
 .stamp img{
-	width: 150px;
-	height: 150px;
+	width: 185px;
+	height: 185px;
 	opacity : 0.8;
 }
 
 #stamp11{
-	display: none;
-	left:153px;
-	top:673px;
+	left:136px;
+	top:657px;
 }
 #stamp12{
-	display: none;
-	left:338px;
-	top:673px;
+	left:322px;
+	top:657px;
 }
 #stamp13{
-	display: none;
-	left:523px;
-	top:673px;
+	left:508px;
+	top:657px;
 }
 #stamp14{
-	display: none;
-	left:708px;
-	top:673px;
+	left:694px;
+	top:657px;
 }
 #stamp15{
-	display: none;
-	left:893px;
-	top:673px;
+	left:880px;
+	top:657px;
 }
 
 #stamp21{
-	display: none;
-	left:153px;
-	top:858px;
+	left:136px;
+	top:843px;
 }
 #stamp22{
-	display: none;
-	left:338px;
-	top:858px;
+	left:322px;
+	top:843px;
 }
 #stamp23{
-	display: none;
-	left:523px;
-	top:858px;
+	left:508px;
+	top:843px;
 }
 #stamp24{
-	display: none;
-	left:708px;
-	top:858px;
+	left:694px;
+	top:843px;
 }
 #stamp25{
-	display: none;
-	left:893px;
-	top:858px;
+	left:880px;
+	top:843px;
 }
 
 #stamp31{
-	display: none;
-	left:153px;
-	top:1043px;
+	left:136px;
+	top:1029px;
 }
 #stamp32{
-	display: none;
-	left:338px;
-	top:1043px;
+	left:322px;
+	top:1029px;
 }
 #stamp33{
-	display: none;
-	left:523px;
-	top:1043px;
+	left:508px;
+	top:1029px;
 }
 #stamp34{
-	display: none;
-	left:708px;
-	top:1043px;
+	left:694px;
+	top:1029px;
 }
 #stamp35{
-	display: none;
-	left:893px;
-	top:1043px;
+	left:880px;
+	top:1029px;
 }
 
 #stamp41{
-	display: none;
-	left:153px;
-	top:1228px;
+	left:136px;
+	top:1215px;
 }
 #stamp42{
-	display: none;
-	left:338px;
-	top:1228px;
+	left:322px;
+	top:1215px;
 }
 #stamp43{
-	display: none;
-	left:523px;
-	top:1228px;
+	left:508px;
+	top:1215px;
 }
 #stamp44{
-	display: none;
-	left:708px;
-	top:1228px;
+	left:694px;
+	top:1215px;
 }
 #stamp45{
-	display: none;
-	left:893px;
-	top:1228px;
+	left:880px;
+	top:1215px;
 }
 
 #stamp51{
-	display: none;
-	left:153px;
-	top:1413px;
+	left:136px;
+	top:1401px;
 }
 #stamp52{
-	display: none;
-	left:338px;
-	top:1413px;
+	left:322px;
+	top:1401px;
 }
 #stamp53{
-	display: none;
-	left:523px;
-	top:1413px;
+	left:508px;
+	top:1401px;
 }
 #stamp54{
-	display: none;
-	left:708px;
-	top:1413px;
+	left:694px;
+	top:1401px;
 }
 #stamp55{
-	display: none;
-	left:893px;
-	top:1413px;
+	left:880px;
+	top:1401px;
 }
+
 
 body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h3, h5, h6, input,
    legend, li, ol, p, select, option, div, table, label, td, textarea, th, ul {
