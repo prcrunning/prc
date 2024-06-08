@@ -28,6 +28,18 @@ window.onload = function(){
 function submitAttendance(){
 var dataRequestUrl = "https://script.google.com/macros/s/AKfycbyBL7KHLo-XzbSvf8zV2w2xdPP_LcujaGxNIREkkAafNpPWYY-xZGXPG995WwoXNyce/exec";
 
+	var name = document.getElementById('name').value;
+	var region = document.getElementById('region').value;
+	var attandanceType = document.getElementById('attandanceType').value;
+	var pw = document.getElementById('pw').value;
+	
+	if(name === ""){
+		alert("이름을 입력해 주세요.");
+	}else if ( region == "" ){
+		alert("지역을 입력해주세요.");
+	}else if(attandanceType==="정기런" && pw === ""){
+		alert("인증번호를 입력해주세요.");
+	}else{
 		$.ajax({
 			type:'POST',   //post 방식으로 전송
 			url:dataRequestUrl,
@@ -39,6 +51,10 @@ var dataRequestUrl = "https://script.google.com/macros/s/AKfycbyBL7KHLo-XzbSvf8z
 				if(getData.result === "success"){
 					$('#wait').hide();
 					window.location.href = "./attendance_complete.html";
+				}else if(getData.result === "PwError"){
+					$('#wait').hide();
+					document.getElementById('pw').value = "";
+					alert("인증 비밀번호가 틀렸습니다.");
 				}else{
 					$('#wait').hide();
 					alert("출석체크에 실패했습니다.");
@@ -50,7 +66,7 @@ var dataRequestUrl = "https://script.google.com/macros/s/AKfycbyBL7KHLo-XzbSvf8z
 				initData();
 			}
 		});
-
+	}
 }
  $(document).ajaxStart(function () {
         $('#wait').show();
@@ -62,7 +78,19 @@ var dataRequestUrl = "https://script.google.com/macros/s/AKfycbyBL7KHLo-XzbSvf8z
 
 function initData(){
 	document.getElementById('name').value = "";
-	document.getElementById('region').value = "";	
+	document.getElementById('region').value = "";
+	document.getElementById('pw').value = "";
+}
+
+function attandanceTypeChange(){
+	var attandanceType = document.getElementById('attandanceType').value;
+
+	if(attandanceType === "정기런"){
+		document.getElementById('pwArea').hidden = false;
+	}else{
+		document.getElementById('pw').value = "";
+		document.getElementById('pwArea').hidden = true;
+	}
 }	
 </script>
 
@@ -84,12 +112,12 @@ function initData(){
 			   <input type="text" id="attandanceDate" name="출석일" hidden="true"></span>
        <!-- 성명 입력 -->
                <div class="userInput">
-                  <h3 class="list">성명<span id="nameError"></span></h3>
+                  <h3 class="list">성명<span id="nameSpan"></span></h3>
                   <span class="box int_id"><input type="text" id="name" name="이름" class="int check"></span>
                </div>			   
         <!-- 지역 입력 -->
 				<div class="userInput">
-                  <h3 class="list">지역<span id="regionError"></span></h3>
+                  <h3 class="list">지역<span id="regionSpan"></span></h3>
                   <span class="box int_id" ><input type="text" id="region" name="지역" class="int check"></span>
                </div>
         <!-- 이메일 입력 -->
@@ -97,13 +125,18 @@ function initData(){
                   <h3 class="list">출석유형<span id="attandance"></span></h3>
                   <span class="box int_id" id="attandanceBox"> 
                         <!-- 이메일 택일 -->
-                        <select id="attandanceType" name="출석유형">
+                        <select id="attandanceType" name="출석유형" onChange="javascript:attandanceTypeChange();">
                            <option value="정기런">정기런</option>
                            <option value="번개런">번개런</option>
                            <option value="러닝외">러닝외</option>
                         </select>
                   </span>
                </div>
+		<!-- 인증번호 입력 -->
+				<div class="userInput" id="pwArea" >
+                  <h3 class="list">인증번호<span id="pwSpan"></span></h3>
+                  <span class="box int_id" ><input type="text" id="pw" name="비밀번호" class="int check"></span>
+               </div>			   
                <div class="btn_area">
                   <input type="submit" value="출석하기" id="btnSubmit" name="btnSubmit">
                </div>
