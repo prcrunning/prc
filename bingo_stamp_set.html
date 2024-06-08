@@ -21,6 +21,8 @@ function init(){
 
 
 function submitAttendance(){
+	clearBingoBoard();
+
 	if(document.getElementById('name').value==""){
 		alert("빙고 업데이트 러너를 먼저 입력해주세요.");
 		return;
@@ -36,10 +38,8 @@ var dataRequestUrl = "https://script.google.com/macros/s/AKfycbzCBkDnEfwDH30rp97
 				var getData = data;
 				if(getData.result === "success"){
 					if( getData.name != "PRC" ){
-						document.getElementById('isNew').value="U";
 						setBingoStamp(getData);
 					}else{
-						document.getElementById('isNew').value="C";
 						document.getElementById('bingo_runner').innerHTML = document.getElementById('name').value;
 						$("#bingo_runner").show();
 					}
@@ -69,9 +69,14 @@ function initData(){
 	document.getElementById('bingo_runner').innerHTML = "";
 	$("#bingo_runner").hide();
 	
+	clearBingoBoard();
+}
+
+function clearBingoBoard(){
 	for( var rowPos=1 ; rowPos < 6 ; rowPos++ ){
 		for( var colPos= 1 ; colPos < 6 ; colPos ++ ){
-			$("#stamp"+rowPos+colPos).hide();
+			document.getElementById("stamp"+rowPos+colPos+"_img").src="./resources/images/noStamp.png";
+			document.getElementById(""+rowPos+""+colPos).value="";
 		}
 	}
 }
@@ -175,7 +180,6 @@ var dataRequestUrl = "https://script.google.com/macros/s/AKfycbzCBkDnEfwDH30rp97
 		<form method="get" name="setBingo" id="setBingo">
 			<input type="text" id="method" name="method" value="update" hidden=true>
 			<input type="text" id="bingoName" name="이름" value="" hidden=true>
-			<input type="text" id="isNew" name="isNew" value="C" hidden=true>
 			<input type="text" id="11" name="11" value="" hidden=true>
 			<input type="text" id="12" name="12" value="" hidden=true>
 			<input type="text" id="13" name="13" value="" hidden=true>
