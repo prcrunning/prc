@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko"> <!-- 코드언어 표시 == 웹 표준지침 준수 -->
+<head>
+<meta charset="UTF-8">
+<title>PRC 빙고판</title>
+<style>
+@import url("./resources/css/bingo.css");
+</style>
+<script type="text/javascript" src="./resources/js/jquery.min.js"></script>
+
+
+<script>
+window.onload = function(){
+	init();
+}
+
+function init(){
+
+
+}
+
+
+function submitAttendance(){
+	if(document.getElementById('name').value==""){
+		alert("빙고 업데이트 러너를 먼저 입력해주세요.");
+		return;
+	}
+
+var dataRequestUrl = "https://script.google.com/macros/s/AKfycbzCBkDnEfwDH30rp972yIHC8qJGNt0FI-6PVjoUfIpBGw1DFWkb01W41uz4rewwbCc/exec";
+		$.ajax({
+			type:'POST',   //post 방식으로 전송
+			url:dataRequestUrl,
+			data : $('#bingo').serialize(),
+			dataType:'json',   //html 파일 형식으로 값을 담아온다.
+			success: function(data){
+				var getData = data;
+				if(getData.result === "success"){
+					if( getData.name != "PRC" ){
+						document.getElementById('isNew').value="U";
+						setBingoStamp(getData);
+					}else{
+						document.getElementById('isNew').value="C";
+						document.getElementById('bingo_runner').innerHTML = document.getElementById('name').value;
+						$("#bingo_runner").show();
+					}
+					$('#wait').hide();
+				}else{
+					alert("빙고판 조회에 실패했습니다.");
+					initData();
+					$('#wait').hide();
+				}
+			},
+			error: function(err){
+				alert("빙고판 조회에 실패했습니다.");
+				initData();
+			}
+		});
+}
+ $(document).ajaxStart(function () {
+        $('#wait').show();
+    });
+
+    $(document).ajaxError(function () {
+        $('#wait').hide();
+    }); 
+
+function initData(){
+	document.getElementById('name').value = "";
+	document.getElementById('bingo_runner').innerHTML = "";
+	$("#bingo_runner").hide();
+	
+	for( var rowPos=1 ; rowPos < 6 ; rowPos++ ){
+		for( var colPos= 1 ; colPos < 6 ; colPos ++ ){
+			$("#stamp"+rowPos+colPos).hide();
+		}
+	}
+}
+
+function setBingoStamp(data){
+	var runner = data.name;
+	var stampList = data.bingo[0];
+
+	document.getElementById('bingo_runner').innerHTML = runner;
+	$("#bingo_runner").show();
+	
+	var rowPos = 1;
+	var colPos = 1;
+	var i=0;
+
+	for( i ; i <stampList.length ; i++){
+		if(stampList[i] == "O"){
+			document.getElementById("stamp"+rowPos+colPos+"_img").src="./resources/images/bingo.png";
+			document.getElementById(""+rowPos+""+colPos).value="O";
+		}else{
+			document.getElementById("stamp"+rowPos+colPos+"_img").src="./resources/images/noStamp.png";
+			document.getElementById(""+rowPos+""+colPos).value="";
+		}
+		if( colPos == 5 ){
+			rowPos = rowPos + 1;
+			colPos = 1;
+		}else{
+			colPos = colPos + 1;
+		}
+	} 
+}
+
+function switchBingoStampStatus(imgSrc){
+	var currStatus  = document.getElementById(imgSrc).alt;
+
+	if(currStatus === "noStamp"){
+		document.getElementById(imgSrc).src = "./resources/images/bingo.png";
+		document.getElementById(imgSrc).alt = "stamp";
+		document.getElementById(imgSrc.substr(5,2)).value="O";
+	}else{
+		document.getElementById(imgSrc).src = "./resources/images/noStamp.png";
+		document.getElementById(imgSrc).alt = "noStamp";
+		document.getElementById(imgSrc.substr(5,2)).value="";
+	}
+	
+}
+function updateBingoBoard(){
+var dataRequestUrl = "https://script.google.com/macros/s/AKfycbzCBkDnEfwDH30rp972yIHC8qJGNt0FI-6PVjoUfIpBGw1DFWkb01W41uz4rewwbCc/exec";
+
+	document.getElementById("bingoName").value=document.getElementById('bingo_runner').innerHTML;
+
+
+		$.ajax({
+			type:'POST',   //post 방식으로 전송
+			url:dataRequestUrl,
+			data : $('#setBingo').serialize(),
+			dataType:'json',   //html 파일 형식으로 값을 담아온다.
+			success: function(data){
+				var getData = data;
+				if(getData.result === "success"){
+					alert("빙고판 업데이트에 성공했습니다.");
+					$('#wait').hide();
+				}else{
+					alert("빙고판 업데이트에 실패했습니다.");
+					$('#wait').hide();
+				}
+			},
+			error: function(err){
+				alert("빙고판 업데이트에 실패했습니다.");
+			}
+		});
+}
+</script>
+
+</head>
+<body>
+   <div id="wrap" class="wrapper">
+      <form method="get" name="bingo" id="bingo" action="javascript:submitAttendance();">
+        <!-- 회원가입 타이틀부분 -->
+         <header>
+            <div id="header">
+               <h1 class="h_loho">
+                  <span><img  alt="prc_logo" src="./resources/images/prc_logo.jpg"></span>
+               </h1>
+            </div>
+         </header>
+        <div id="container">
+            <div class="row_group">
+       <!-- 성명 입력 -->
+               <div class="userInput">
+					<h3 class="list">이름<span id="nameError"></span></h3>
+					<span class="box int_id"><input type="text" id="name" name="이름" class="int check"></span>
+					<div class="btn_area">
+						<input type="submit" value="빙고조회" id="btnSubmit" name="btnSubmit">
+						<input type="button" value="빙고판 업데이트" id="btnDown" name="btnDown" onclick="javascript:updateBingoBoard();">						
+					</div>
+               </div>			   
+            </div>
+        </div>
+		</form>
+		<form method="get" name="setBingo" id="setBingo">
+			<input type="text" id="method" name="method" value="update" hidden=true>
+			<input type="text" id="bingoName" name="이름" value="" hidden=true>
+			<input type="text" id="isNew" name="isNew" value="C" hidden=true>
+			<input type="text" id="11" name="11" value="" hidden=true>
+			<input type="text" id="12" name="12" value="" hidden=true>
+			<input type="text" id="13" name="13" value="" hidden=true>
+			<input type="text" id="14" name="14" value="" hidden=true>
+			<input type="text" id="15" name="15" value="" hidden=true>
+			<input type="text" id="21" name="21" value="" hidden=true>
+			<input type="text" id="22" name="22" value="" hidden=true>
+			<input type="text" id="23" name="23" value="" hidden=true>
+			<input type="text" id="24" name="24" value="" hidden=true>
+			<input type="text" id="25" name="25" value="" hidden=true>
+			<input type="text" id="31" name="31" value="" hidden=true>
+			<input type="text" id="32" name="32" value="" hidden=true>
+			<input type="text" id="33" name="33" value="" hidden=true>
+			<input type="text" id="34" name="34" value="" hidden=true>
+			<input type="text" id="35" name="35" value="" hidden=true>
+			<input type="text" id="41" name="41" value="" hidden=true>
+			<input type="text" id="42" name="42" value="" hidden=true>
+			<input type="text" id="43" name="43" value="" hidden=true>
+			<input type="text" id="44" name="44" value="" hidden=true>
+			<input type="text" id="45" name="45" value="" hidden=true>
+			<input type="text" id="51" name="51" value="" hidden=true>
+			<input type="text" id="52" name="52" value="" hidden=true>
+			<input type="text" id="53" name="53" value="" hidden=true>
+			<input type="text" id="54" name="54" value="" hidden=true>
+			<input type="text" id="55" name="55" value="" hidden=true>
+		</form>
+
+		<div class="prcBingo">
+			<div id="bingo_main" name="bingo_main">
+				<div class="bingo_board" name="bingo_board" >
+					<img  alt="bingoBoard" id="bingo_board_img" src="./resources/images/bingoBoard.png">
+					<!--<img  alt="bingoBoard" src="./resources/images/bingoBoard.png">-->
+				</div>
+				<div name="bingo_runner" id="bingo_runner" class="bingo_runner"></div>
+				<div name="stamp11" id="stamp11" class="stamp" onClick="javascript:switchBingoStampStatus('stamp11_img')">
+					<img  alt="noStamp" id="stamp11_img" src="./resources/images/noStamp.png" >
+				</div>
+				<div name="stamp12" id="stamp12" class="stamp" onClick="javascript:switchBingoStampStatus('stamp12_img')">
+					<img  alt="noStamp" id="stamp12_img" src="./resources/images/noStamp.png" >
+				</div>
+				<div name="stamp13" id="stamp13" class="stamp" onClick="javascript:switchBingoStampStatus('stamp13_img')">
+					<img  alt="noStamp" id="stamp13_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp14" id="stamp14" class="stamp" onClick="javascript:switchBingoStampStatus('stamp14_img')">
+					<img  alt="noStamp" id="stamp14_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp15" id="stamp15" class="stamp" onClick="javascript:switchBingoStampStatus('stamp15_img')">
+					<img  alt="noStamp" id="stamp15_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp21" id="stamp21" class="stamp" onClick="javascript:switchBingoStampStatus('stamp21_img')">
+					<img  alt="noStamp" id="stamp21_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp22" id="stamp22" class="stamp" onClick="javascript:switchBingoStampStatus('stamp22_img')">
+					<img  alt="noStamp" id="stamp22_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp23" id="stamp23" class="stamp" onClick="javascript:switchBingoStampStatus('stamp23_img')">
+					<img  alt="noStamp" id="stamp23_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp24" id="stamp24" class="stamp" onClick="javascript:switchBingoStampStatus('stamp24_img')">
+					<img  alt="noStamp" id="stamp24_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp25" id="stamp25" class="stamp" onClick="javascript:switchBingoStampStatus('stamp25_img')">
+					<img  alt="noStamp" id="stamp25_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp31" id="stamp31" class="stamp" onClick="javascript:switchBingoStampStatus('stamp31_img')">
+					<img  alt="noStamp" id="stamp31_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp32" id="stamp32" class="stamp" onClick="javascript:switchBingoStampStatus('stamp32_img')">
+					<img  alt="noStamp" id="stamp32_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp33" id="stamp33" class="stamp" onClick="javascript:switchBingoStampStatus('stamp33_img')">
+					<img  alt="noStamp" id="stamp33_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp34" id="stamp34" class="stamp" onClick="javascript:switchBingoStampStatus('stamp34_img')">
+					<img  alt="noStamp" id="stamp34_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp35" id="stamp35" class="stamp" onClick="javascript:switchBingoStampStatus('stamp35_img')">
+					<img  alt="noStamp" id="stamp35_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp41" id="stamp41" class="stamp" onClick="javascript:switchBingoStampStatus('stamp41_img')">
+					<img  alt="noStamp" id="stamp41_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp42" id="stamp42" class="stamp" onClick="javascript:switchBingoStampStatus('stamp42_img')">
+					<img  alt="noStamp" id="stamp42_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp43" id="stamp43" class="stamp" onClick="javascript:switchBingoStampStatus('stamp43_img')">
+					<img  alt="noStamp" id="stamp43_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp44" id="stamp44" class="stamp" onClick="javascript:switchBingoStampStatus('stamp44_img')">
+					<img  alt="noStamp" id="stamp44_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp45" id="stamp45" class="stamp" onClick="javascript:switchBingoStampStatus('stamp45_img')">
+					<img  alt="noStamp" id="stamp45_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp51" id="stamp51" class="stamp" onClick="javascript:switchBingoStampStatus('stamp51_img')">
+					<img  alt="noStamp" id="stamp51_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp52" id="stamp52" class="stamp" onClick="javascript:switchBingoStampStatus('stamp52_img')">
+					<img  alt="noStamp" id="stamp52_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp53" id="stamp53" class="stamp" onClick="javascript:switchBingoStampStatus('stamp53_img')">
+					<img  alt="noStamp" id="stamp53_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp54" id="stamp54" class="stamp" onClick="javascript:switchBingoStampStatus('stamp54_img')">
+					<img  alt="noStamp" id="stamp54_img" src="./resources/images/noStamp.png">
+				</div>
+				<div name="stamp55" id="stamp55" class="stamp" onClick="javascript:switchBingoStampStatus('stamp55_img')">
+					<img  alt="noStamp" id="stamp55_img" src="./resources/images/noStamp.png">
+				</div>
+			</div>			
+		</div>
+   </div>
+<div id="wait" name="wait">
+<img  src="./resources/images/loading.gif" width="30%" height="30%" alt="Loading..." style="position: fixed; top: 35%; left: 35%;" />
+</div>   
+</body>
+</html>
