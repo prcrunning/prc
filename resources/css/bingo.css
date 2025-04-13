@@ -136,8 +136,8 @@ h3.list {
 	z-index: 15;
 	left:138px;
 	top:487px;
-	background-color:#cd5b40;
-	color:#f0ee67;
+	background-color:#69E1E2;
+	color:#F68D8F;
 	text-align:left;
 	font-size:120px;
 	font-weight: bold;
@@ -146,7 +146,7 @@ h3.list {
 	vertical-align: middle;
 	margin: 0px;
 	padding: 0px;
-	-webkit-text-stroke: 2px #ea00d9;
+	-webkit-text-stroke: 20px #F5E1E1;
 }
 
 .stamp{
