@@ -146,6 +146,7 @@ h3.list {
 	vertical-align: middle;
 	margin: 0px;
 	padding: 0px;
+	-webkit-text-stroke: 2px #ea00d9;
 }
 
 .stamp{
