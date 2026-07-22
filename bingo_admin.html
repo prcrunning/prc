@@ -86,7 +86,8 @@
 			var runner = data.name;
 			var stampList = data.bingo[0];
 
-			document.getElementById('bingo_runner').innerHTML = runner;
+			var displayName = runner.replace(/\s*BINGO$/i, '').trim() + " BINGO";
+			document.getElementById('bingo_runner').innerHTML = displayName;
 			$("#bingo_runner").show();
 
 			var rowPos = 1;
@@ -129,7 +130,13 @@
 
 			var rawName = document.getElementById('name').value || document.getElementById('bingo_runner').innerHTML;
 			rawName = rawName.replace(/\s*BINGO$/i, '').trim();
+			
+			// 구글 시트 전송용 이름 설정
 			document.getElementById("bingoName").value = rawName;
+			
+			// 화면 표시용 이름에는 BINGO 유지
+			document.getElementById('bingo_runner').innerHTML = rawName + " BINGO";
+			$("#bingo_runner").show();
 
 
 			$.ajax({

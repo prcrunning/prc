@@ -70,7 +70,7 @@
 			var runner = data.name;
 			var stampList = data.bingo[0];
 
-			var displayName = runner.endsWith("BINGO") ? runner : runner + " BINGO";
+			var displayName = runner.replace(/\s*BINGO$/i, '').trim() + " BINGO";
 			document.getElementById('bingo_runner').innerHTML = displayName;
 			$("#bingo_runner").show();
 
