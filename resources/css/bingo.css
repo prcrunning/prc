@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
 /*헤더 애니메이션 부여*/
 /*
 @keyframes headerMove{
@@ -9,78 +10,82 @@
 }
 */
 /*헤더 이미지*/
-html, body {
-	background-color:#c50b30;
+html,
+body {
+	background-color: #c50b30;
 	width: 1200px;
 }
 
-#header img{
-   width : 100%;
-   height: 100%;
-   animation-name: headerMove;
-   animation-duration: 3s;
-   animation-iteration-count: infinite; 
+#header img {
+	width: 100%;
+	height: 100%;
+	animation-name: headerMove;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
 }
+
 /*헤더의 부제목*/
-#header p{
-   font-size : 35px;
-   font-family: 'Gowun Dodum', sans-serif;
-   margin-top : 15px;
-   margin-bottom: 2%;
-   text-align: center;
-   font-weight: bold;
+#header p {
+	font-size: 35px;
+	font-family: 'Gowun Dodum', sans-serif;
+	margin-top: 15px;
+	margin-bottom: 2%;
+	text-align: center;
+	font-weight: bold;
 }
 
 h3.list {
-   margin : 2px auto;
-   text-align: center;
-   font-size: 25px;
+	margin: 2px auto;
+	text-align: center;
+	font-size: 25px;
 }
 
 /*벤치마킹 - 박스 디자인*/
 .box {
-   margin : 3px auto;
-   display: block;
-   width: 60%;
-   height: 51px;
-   padding-top: 10px;
-   padding-right: 10px;
-   padding-bottom: 10px;
-   padding-left: 10px;
-   background: #fff;
-   box-sizing: border-box;
-   vertical-align: top;
-   text-align: center;
-}
-/*벤치마킹 - input 디자인*/
-.int {
-   display: block;
-   position: relative;
-   width: 100%;
-   height: 29px;
-   border: solid 1px #dadada;
-   line-height: 29px;
-   border: none;
-   background: #fff;
-   font-size: 20px;
-   font-weight: bold;
-   box-sizing: border-box;
-   text-align: center;
-   z-index: 10;
+	margin: 3px auto;
+	display: block;
+	width: 60%;
+	height: 51px;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	background: #fff;
+	box-sizing: border-box;
+	vertical-align: top;
+	text-align: center;
 }
 
-#attandanceType{
-	width:100%;
+/*벤치마킹 - input 디자인*/
+.int {
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 29px;
+	border: solid 1px #dadada;
+	line-height: 29px;
+	border: none;
+	background: #fff;
+	font-size: 20px;
+	font-weight: bold;
+	box-sizing: border-box;
+	text-align: center;
+	z-index: 10;
+}
+
+#attandanceType {
+	width: 100%;
 	height: 29px;
 	font-size: 20px;
 	font-weight: bold;
 	text-align: center;
 }
+
 #btnSubmit {
-	margin : 10px auto;
+	margin: 10px auto;
 	display: block;
-    position: relative;
-	width:30%;
+	position: relative;
+	width: 30%;
 	height: 45px;
 	font-size: 25px;
 	font-weight: bold;
@@ -88,17 +93,17 @@ h3.list {
 }
 
 #btnDown {
-	margin : 10px auto;
+	margin: 10px auto;
 	display: block;
-    position: relative;
-	width:30%;
+	position: relative;
+	width: 30%;
 	height: 45px;
 	font-size: 25px;
 	font-weight: bold;
 	text-align: center;
 }
 
-#wait{
+#wait {
 	display: none;
 	width: 100%;
 	height: 100%;
@@ -107,21 +112,20 @@ h3.list {
 	position: fixed;
 	z-index: 10000;
 	text-align: center;
-	opacity : 0.4;
-	background-color : white;
+	opacity: 0.4;
+	background-color: white;
 }
 
-.bingo_main {
-
-}
+.bingo_main {}
 
 .bingo_board {
-	margin : auto;
+	margin: auto;
 	position: relative;
 	width: 1200px;
 	height: 1200px;
 }
-.bingo_board img{
+
+.bingo_board img {
 	width: 1200px;
 	height: 1200px;
 	top: 0px;
@@ -129,147 +133,207 @@ h3.list {
 }
 
 .bingo_runner {
-	display: none;
-	width: 375px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 1120px;
 	height: 140px;
 	position: absolute;
 	z-index: 15;
-	left:138px;
-	top:487px;
-	background-color:#69E1E2;
-	color:#F68D8F;
-	text-align:left;
-	font-size:125px;
-	font-weight: bold;
-	text-align:center;
-	line-height:1;
-	vertical-align: middle;
+	left: 40px;
+	top: 487px;
+	background-color: transparent;
+	color: #00BFFF;
+	font-size: 125px;
+	font-weight: 800;
+	text-align: center;
+	line-height: 1;
 	margin: 0px;
 	padding: 0px;
-	-webkit-text-stroke: 5px #F5E1E1;
+	word-break: keep-all;
+	white-space: nowrap;
+	text-shadow:
+		-5px -5px 0 #FFFFFF,
+		 5px -5px 0 #FFFFFF,
+		-5px  5px 0 #FFFFFF,
+		 5px  5px 0 #FFFFFF,
+		-5px  0px 0 #FFFFFF,
+		 5px  0px 0 #FFFFFF,
+		 0px -5px 0 #FFFFFF,
+		 0px  5px 0 #FFFFFF,
+		-3px -3px 0 #FFFFFF,
+		 3px -3px 0 #FFFFFF,
+		-3px  3px 0 #FFFFFF,
+		 3px  3px 0 #FFFFFF,
+		 0px  4px 10px rgba(0, 0, 0, 0.25);
 }
 
-.stamp{
+.stamp {
 	width: 185px;
 	height: 185px;
 	position: absolute;
 	z-index: 15;
 }
 
-.stamp img{
+.stamp img {
 	width: 185px;
 	height: 185px;
-	opacity : 0.8;
+	opacity: 0.8;
 }
 
-#stamp11{
-	left:136px;
-	top:655px;
-}
-#stamp12{
-	left:322px;
-	top:655px;
-}
-#stamp13{
-	left:508px;
-	top:655px;
-}
-#stamp14{
-	left:694px;
-	top:655px;
-}
-#stamp15{
-	left:880px;
-	top:655px;
+#stamp11 {
+	left: 136px;
+	top: 655px;
 }
 
-#stamp21{
-	left:136px;
-	top:841px;
-}
-#stamp22{
-	left:322px;
-	top:841px;
-}
-#stamp23{
-	left:508px;
-	top:841px;
-}
-#stamp24{
-	left:694px;
-	top:841px;
-}
-#stamp25{
-	left:880px;
-	top:841px;
+#stamp12 {
+	left: 322px;
+	top: 655px;
 }
 
-#stamp31{
-	left:136px;
-	top:1027px;
-}
-#stamp32{
-	left:322px;
-	top:1027px;
-}
-#stamp33{
-	left:508px;
-	top:1027px;
-}
-#stamp34{
-	left:694px;
-	top:1027px;
-}
-#stamp35{
-	left:880px;
-	top:1027px;
+#stamp13 {
+	left: 508px;
+	top: 655px;
 }
 
-#stamp41{
-	left:136px;
-	top:1213px;
-}
-#stamp42{
-	left:322px;
-	top:1213px;
-}
-#stamp43{
-	left:508px;
-	top:1213px;
-}
-#stamp44{
-	left:694px;
-	top:1213px;
-}
-#stamp45{
-	left:880px;
-	top:1213px;
+#stamp14 {
+	left: 694px;
+	top: 655px;
 }
 
-#stamp51{
-	left:136px;
-	top:1399px;
+#stamp15 {
+	left: 880px;
+	top: 655px;
 }
-#stamp52{
-	left:322px;
-	top:1399px;
+
+#stamp21 {
+	left: 136px;
+	top: 841px;
 }
-#stamp53{
-	left:508px;
-	top:1399px;
+
+#stamp22 {
+	left: 322px;
+	top: 841px;
 }
-#stamp54{
-	left:694px;
-	top:1399px;
+
+#stamp23 {
+	left: 508px;
+	top: 841px;
 }
-#stamp55{
-	left:880px;
-	top:1399px;
+
+#stamp24 {
+	left: 694px;
+	top: 841px;
+}
+
+#stamp25 {
+	left: 880px;
+	top: 841px;
+}
+
+#stamp31 {
+	left: 136px;
+	top: 1027px;
+}
+
+#stamp32 {
+	left: 322px;
+	top: 1027px;
+}
+
+#stamp33 {
+	left: 508px;
+	top: 1027px;
+}
+
+#stamp34 {
+	left: 694px;
+	top: 1027px;
+}
+
+#stamp35 {
+	left: 880px;
+	top: 1027px;
+}
+
+#stamp41 {
+	left: 136px;
+	top: 1213px;
+}
+
+#stamp42 {
+	left: 322px;
+	top: 1213px;
+}
+
+#stamp43 {
+	left: 508px;
+	top: 1213px;
+}
+
+#stamp44 {
+	left: 694px;
+	top: 1213px;
+}
+
+#stamp45 {
+	left: 880px;
+	top: 1213px;
+}
+
+#stamp51 {
+	left: 136px;
+	top: 1399px;
+}
+
+#stamp52 {
+	left: 322px;
+	top: 1399px;
+}
+
+#stamp53 {
+	left: 508px;
+	top: 1399px;
+}
+
+#stamp54 {
+	left: 694px;
+	top: 1399px;
+}
+
+#stamp55 {
+	left: 880px;
+	top: 1399px;
 }
 
 
-body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h3, h5, h6, input,
-   legend, li, ol, p, select, option, div, table, label, td, textarea, th, ul {
-   margin: 0;
-   padding: 0;
+body,
+button,
+dd,
+dl,
+dt,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h3,
+h5,
+h6,
+input,
+legend,
+li,
+ol,
+p,
+select,
+option,
+div,
+table,
+label,
+td,
+textarea,
+th,
+ul {
+	margin: 0;
+	padding: 0;
 }
