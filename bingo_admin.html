@@ -153,28 +153,40 @@ var dataRequestUrl = "https://script.google.com/macros/s/AKfycbzCBkDnEfwDH30rp97
 
 
 function partShot() {
-html2canvas(document.querySelector('#bingo_main')).then(function(canvas) {
-	//var name = document.getElementById('bingo_runner').innerHTML;
-        saveAs(canvas.toDataURL(), "myBingoBoard.png");
-    });
+	document.fonts.ready.then(function () {
+		html2canvas(document.querySelector('#bingo_main'), {
+			useCORS: true,
+			allowTaint: true,
+			scale: 2
+		}).then(function(canvas) {
+			var runnerName = document.getElementById('bingo_runner').innerText || "BingoBoard";
+			saveAs(canvas.toDataURL('image/png'), runnerName + "_빙고판.png");
+		});
+	});
 }
 
 
 function saveAs(uri, filename) {
-
-    var link = document.createElement('a');
-    if (typeof link.download === 'string') {
-        link.href = uri;
-        link.download = filename;
-        //Firefox requires the link to be in the body
-        document.body.appendChild(link);
-        //simulate click
-        link.click();
-        //remove the link when done
-        document.body.removeChild(link);
-    } else {
-        window.open(uri);
-    }
+	var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+	if (isMobile) {
+		var win = window.open();
+		if (win) {
+			win.document.write('<div style="text-align:center; padding:20px;"><img src="' + uri + '" style="max-width:100%; height:auto;"/><br/><p style="font-size:18px; margin-top:15px; font-weight:bold;">이미지를 길게 눌러 저장하세요.</p></div>');
+		} else {
+			location.href = uri;
+		}
+	} else {
+		var link = document.createElement('a');
+		if (typeof link.download === 'string') {
+			link.href = uri;
+			link.download = filename;
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		} else {
+			window.open(uri);
+		}
+	}
 }
 
 </script>
