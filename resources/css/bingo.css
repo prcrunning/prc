@@ -136,15 +136,15 @@ h3.list {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 1120px;
+	width: 565px;
 	height: 140px;
 	position: absolute;
 	z-index: 15;
-	left: 40px;
-	top: 487px;
+	left: 600px;
+	top: 502px;
 	background-color: transparent;
 	color: #00BFFF;
-	font-size: 125px;
+	font-size: 65px;
 	font-weight: 800;
 	text-align: center;
 	line-height: 1;
@@ -153,19 +153,19 @@ h3.list {
 	word-break: keep-all;
 	white-space: nowrap;
 	text-shadow:
-		-5px -5px 0 #FFFFFF,
-		 5px -5px 0 #FFFFFF,
-		-5px  5px 0 #FFFFFF,
-		 5px  5px 0 #FFFFFF,
-		-5px  0px 0 #FFFFFF,
-		 5px  0px 0 #FFFFFF,
-		 0px -5px 0 #FFFFFF,
-		 0px  5px 0 #FFFFFF,
-		-3px -3px 0 #FFFFFF,
-		 3px -3px 0 #FFFFFF,
-		-3px  3px 0 #FFFFFF,
-		 3px  3px 0 #FFFFFF,
-		 0px  4px 10px rgba(0, 0, 0, 0.25);
+		-5px -5px 0 #80D8FF,
+		5px -5px 0 #80D8FF,
+		-5px 5px 0 #80D8FF,
+		5px 5px 0 #80D8FF,
+		-5px 0px 0 #80D8FF,
+		5px 0px 0 #80D8FF,
+		0px -5px 0 #80D8FF,
+		0px 5px 0 #80D8FF,
+		-3px -3px 0 #80D8FF,
+		3px -3px 0 #80D8FF,
+		-3px 3px 0 #80D8FF,
+		3px 3px 0 #80D8FF,
+		0px 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .stamp {
