@@ -143,8 +143,8 @@ h3.list {
 	left: 600px;
 	top: 502px;
 	background-color: transparent;
-	color: #00BFFF;
-	font-size: 65px;
+	color: #2F82DD;
+	font-size: 66px;
 	font-weight: 800;
 	text-align: center;
 	line-height: 1;
@@ -152,20 +152,7 @@ h3.list {
 	padding: 0px;
 	word-break: keep-all;
 	white-space: nowrap;
-	text-shadow:
-		-5px -5px 0 #80D8FF,
-		5px -5px 0 #80D8FF,
-		-5px 5px 0 #80D8FF,
-		5px 5px 0 #80D8FF,
-		-5px 0px 0 #80D8FF,
-		5px 0px 0 #80D8FF,
-		0px -5px 0 #80D8FF,
-		0px 5px 0 #80D8FF,
-		-3px -3px 0 #80D8FF,
-		3px -3px 0 #80D8FF,
-		-3px 3px 0 #80D8FF,
-		3px 3px 0 #80D8FF,
-		0px 4px 10px rgba(0, 0, 0, 0.25);
+	text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
 }
 
 .stamp {
