@@ -16,7 +16,7 @@
 		}
 
 		function init() {
-			document.getElementById('bingo_runner').innerHTML = "PRC BINGO";
+			document.getElementById('bingo_runner').innerHTML = "PRC";
 			$("#bingo_runner").show();
 		}
 
@@ -41,7 +41,7 @@
 							setBingoStamp(getData);
 						} else {
 							var inputName = document.getElementById('name').value;
-							document.getElementById('bingo_runner').innerHTML = inputName.endsWith("BINGO") ? inputName : inputName + " BINGO";
+							document.getElementById('bingo_runner').innerHTML = inputName;
 							$("#bingo_runner").show();
 						}
 						$('#wait').hide();
@@ -67,7 +67,7 @@
 
 		function initData() {
 			document.getElementById('name').value = "";
-			document.getElementById('bingo_runner').innerHTML = "PRC BINGO";
+			document.getElementById('bingo_runner').innerHTML = "PRC";
 			$("#bingo_runner").show();
 
 			clearBingoBoard();
@@ -86,7 +86,7 @@
 			var runner = data.name;
 			var stampList = data.bingo[0];
 
-			var displayName = runner.replace(/\s*BINGO$/i, '').trim() + " BINGO";
+			var displayName = runner.replace(/\s*BINGO$/i, '').trim();
 			document.getElementById('bingo_runner').innerHTML = displayName;
 			$("#bingo_runner").show();
 
@@ -130,12 +130,12 @@
 
 			var rawName = document.getElementById('name').value || document.getElementById('bingo_runner').innerHTML;
 			rawName = rawName.replace(/\s*BINGO$/i, '').trim();
-			
+
 			// 구글 시트 전송용 이름 설정
 			document.getElementById("bingoName").value = rawName;
-			
-			// 화면 표시용 이름에는 BINGO 유지
-			document.getElementById('bingo_runner').innerHTML = rawName + " BINGO";
+
+			// 화면 표시용 이름
+			document.getElementById('bingo_runner').innerHTML = rawName;
 			$("#bingo_runner").show();
 
 

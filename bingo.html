@@ -16,7 +16,7 @@
 		}
 
 		function init() {
-			document.getElementById('bingo_runner').innerHTML = "PRC BINGO";
+			document.getElementById('bingo_runner').innerHTML = "PRC";
 			$("#bingo_runner").show();
 		}
 
@@ -56,7 +56,7 @@
 
 		function initData() {
 			document.getElementById('name').value = "";
-			document.getElementById('bingo_runner').innerHTML = "PRC BINGO";
+			document.getElementById('bingo_runner').innerHTML = "PRC";
 			$("#bingo_runner").show();
 
 			for (var rowPos = 1; rowPos < 6; rowPos++) {
@@ -70,7 +70,7 @@
 			var runner = data.name;
 			var stampList = data.bingo[0];
 
-			var displayName = runner.replace(/\s*BINGO$/i, '').trim() + " BINGO";
+			var displayName = runner.replace(/\s*BINGO$/i, '').trim();
 			document.getElementById('bingo_runner').innerHTML = displayName;
 			$("#bingo_runner").show();
 
